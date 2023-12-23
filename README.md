@@ -6,7 +6,7 @@
 
 This repository is <b>working on progress</b> to add more useful features. 
 
-## Depdendencies
+## Dependency
 TBU
 
 ## How to use
