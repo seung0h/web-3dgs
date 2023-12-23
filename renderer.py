@@ -24,22 +24,19 @@ class Renderer:
 
         self.active_sh_degree = self.model.get_max_sh_degress
 
-        self.FoVx = deg2rad(fov)
-        self.FoVy = deg2rad(fov)
         self.image_height = H
         self.image_width = W
 
         self.zear = z_near
         self.zfar = z_far
 
-        self.proj = getProjectionMatrix(self.zear, self.zfar, self.FoVx, self.FoVy).transpose(0,1).cuda()
+        self.update_fov(fov)
 
-    
     def update_fov(self, deg):
         rad = deg2rad(deg)
 
         self.FoVx = rad
-        self.FoVy = rad
+        self.FoVy = 2 * math.atan(self.image_height / (2 * (self.image_width / (2 * math.tan(self.FoVx / 2)))))
 
         self.proj = getProjectionMatrix(self.zear, self.zfar, self.FoVx, self.FoVy).transpose(0,1).cuda()
 

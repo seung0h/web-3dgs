@@ -29,8 +29,8 @@ class Viewer:
         self.render_mode = "RGB"
         self.scale = 1.
         self.FoV = 50
-        self.H = 800
-        self.W = 800
+        self.H = args.height
+        self.W = args.width
 
         # load the output of 3DGS
         self.renderer = Renderer(data_path, fov=self.FoV, H=self.H, W=self.W)
