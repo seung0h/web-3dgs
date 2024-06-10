@@ -7,9 +7,14 @@
 This repository is <b>working on progress</b> to add more useful features. 
 
 ## Dependency
-TBU
+```
+torch
+viser
+gsplat
+ninja
+```
 
 ## How to use
 ```
-python main.py -s {output_path_from_3dgs} 
+python main.py -s {.ply_path_from_3dgs} 
 ```

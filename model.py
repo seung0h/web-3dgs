@@ -7,7 +7,7 @@ from plyfile import PlyData
 
 
 class Gaussians:
-    def __init__(self) -> None:
+    def __init__(self, data_path: Path) -> None:
         self._xyz = None
         self._opacity = None
         self._scaling = None
@@ -16,6 +16,8 @@ class Gaussians:
         self._feature_rest = None
 
         self.max_sh_degree = 3
+
+        self.load_ply(data_path)
 
     @property
     def get_xyz(self):
@@ -40,12 +42,15 @@ class Gaussians:
     @property
     def get_max_sh_degress(self):
         return self.max_sh_degree
+    
+    def get_mean_loc(self):
+        return torch.mean(self._xyz, dim=0)
 
     def get_covariance(self, scaling_modifier = 1):
         return self.covariance_activation(self.get_scaling, scaling_modifier, self._rotation)
 
-    def load_ply(self, data_path: Path, iter_num=30000) -> None:
-        plydata = PlyData.read(data_path / f"point_cloud/iteration_{str(iter_num)}/point_cloud.ply")
+    def load_ply(self, data_path: Path) -> None:
+        plydata = PlyData.read(data_path)
         gs_data = plydata.elements[0]
 
         xyz = np.stack((np.asarray(gs_data["x"]),
